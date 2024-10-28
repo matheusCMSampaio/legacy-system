@@ -5,46 +5,40 @@ using System.IO;
 namespace LegacySystem
 {
     //Classe Cliente
-    class cliente
+    class Cliente
     {
-        public int Id;
+        public int id;
         public string nome;
-        public string EMAIL;
+        public string email;
         public DateTime cadastro;
 
-        public cliente(int i, string n, string e)
+        public Cliente(int id, string nome, string email)
         {
-            Id = i;
-            nome = n;
-            EMAIL = e;
+            id = this.id;
+            nome = this.nome;
+            email = this.email;
             cadastro = DateTime.Now;
         }
 
-        public void mudarNome(string n)
+        public void mudarNome(string novoNome)
         {
-            if (n != null && n.Length > 0)
+            if (nome != null && nome.Length > 0)
             {
-                nome = n;
+                nome = novoNome;
             }
         }
 
-        public void AtualizarEmail(string e)
+        public void atualizarEmail(string novoEmail)
         {
-            if (e != null && e.Contains("@"))
+            if (!string.IsNullOrWhiteSpace(novoEmail) && novoEmail.Contains("@"))
             {
-                EMAIL = e;
+                email = novoEmail;
             }
         }
 
-        public void ExibirDados()
+        public void exibirDados()
         {
-            Console.WriteLine("Id: " + Id + " Nome: " + nome + " Email: " + EMAIL + " Cadastro: " + cadastro);
-        }
-
-        public void ExibirDadosOut()
-        {
-            Console.WriteLine("Id: " + Id + " Nome: " + nome + " Email: " + EMAIL + " Cadastro: " + cadastro);
-            Console.WriteLine("Id: " + Id + " Nome: " + nome + " Email: " + EMAIL + " Cadastro: " + cadastro);
+            Console.WriteLine("Id: " + id + " Nome: " + nome + " Email: " + email + " Cadastro: " + cadastro);
         }
     }
 
@@ -52,27 +46,27 @@ namespace LegacySystem
     class Transacoes
     {
         public int id;
-        public decimal v;
-        public DateTime d;
+        public decimal valor;
+        public DateTime data;
         public string descricao;
 
-        public Transacoes(int i, decimal val, string desc)
+        public Transacoes(int id, decimal valor, string descricao)
         {
-            id = i;
-            v = val;
-            d = DateTime.Now;
-            descricao = desc;
+            id = this.id;
+            valor = this.valor;
+            data = DateTime.Now;
+            descricao = this.descricao;
         }
 
         public void ExibirTransacao()
         {
-            Console.WriteLine("Id: " + id + " Valor: " + v + " Descricao: " + descricao + " Data: " + d);
+            Console.WriteLine("Id: " + id + " Valor: " + valor + " Descricao: " + descricao + " Data: " + id);
         }
 
         public void ExibirTransacaoDuplicada()
         {
-            Console.WriteLine("Id: " + id + " Valor: " + v + " Descricao: " + descricao + " Data: " + d);
-            Console.WriteLine("Id: " + id + " Valor: " + v + " Descricao: " + descricao + " Data: " + d);
+            Console.WriteLine("Id: " + id + " Valor: " + valor + " Descricao: " + descricao + " Data: " + data);
+            Console.WriteLine("Id: " + id + " Valor: " + valor + " Descricao: " + descricao + " Data: " + data);
         }
     }
 
@@ -91,7 +85,7 @@ namespace LegacySystem
         {
             foreach (var transacao in listaDeTransacoes)
             {
-                Console.WriteLine("Id: " + transacao.id + " Valor: " + transacao.v + " Descrição: " + transacao.descricao);
+                Console.WriteLine("Id: " + transacao.id + " Valor: " + transacao.valor + " Descrição: " + transacao.descricao);
             }
         }
 
@@ -99,12 +93,12 @@ namespace LegacySystem
         {
             foreach (var transacao in listaDeTransacoes)
             {
-                Console.WriteLine("Id: " + transacao.id + " Valor: " + transacao.v + " Descrição: " + transacao.descricao);
+                Console.WriteLine("Id: " + transacao.id + " Valor: " + transacao.valor + " Descrição: " + transacao.descricao);
             }
 
             foreach (var transacao in listaDeTransacoes)
             {
-                Console.WriteLine("Id: " + transacao.id + " Valor: " + transacao.v + " Descrição: " + transacao.descricao);
+                Console.WriteLine("Id: " + transacao.id + " Valor: " + transacao.valor + " Descrição: " + transacao.descricao);
             }
         }
     }
@@ -112,16 +106,16 @@ namespace LegacySystem
     //Classe Sistema Cliente
     class SistemaCliente
     {
-        public List<cliente> clientes = new List<cliente>();
+        public List<Cliente> clientes = new List<Cliente>();
 
         public void AddCliente(int id, string nome, string email)
         {
-            clientes.Add(new cliente(id, nome, email));
+            clientes.Add(new Cliente(id, nome, email));
         }
 
         public void removerCliente(int id)
         {
-            cliente c = clientes.Find(x => x.Id == id);
+            Cliente c = clientes.Find(x => x.id == id);
             if (c != null)
             {
                 clientes.Remove(c);
@@ -130,28 +124,15 @@ namespace LegacySystem
 
         public void ExibirTodosOsClientes()
         {
-            foreach (cliente c in clientes)
+            foreach (Cliente c in clientes)
             {
-                Console.WriteLine("ID: " + c.Id + " Nome: " + c.nome + " Email: " + c.EMAIL);
-            }
-        }
-
-        public void ExibirTodosOsClientesOut()
-        {
-            foreach (cliente c in clientes)
-            {
-                Console.WriteLine("ID: " + c.Id + " Nome: " + c.nome + " Email: " + c.EMAIL);
-            }
-
-            foreach (cliente c in clientes)
-            {
-                Console.WriteLine("ID: " + c.Id + " Nome: " + c.nome + " Email: " + c.EMAIL);
+                Console.WriteLine("ID: " + c.id + " Nome: " + c.nome + " Email: " + c.email);
             }
         }
 
         public void AtualizarNomeCliente(int id, string nome)
         {
-            cliente c = clientes.Find(x => x.Id == id);
+            Cliente c = clientes.Find(x => x.id == id);
             if (c != null)
             {
                 c.mudarNome(nome);
@@ -162,24 +143,11 @@ namespace LegacySystem
     //Classe Relatório
     class Relatorio
     {
-        public void GerarRelatorioCliente(List<cliente> clientes)
+        public void GerarRelatorioCliente(List<Cliente> clientes)
         {
             foreach (var c in clientes)
             {
-                Console.WriteLine("Cliente: " + c.nome + " | Email: " + c.EMAIL);
-            }
-        }
-
-        public void GerarRelatorioClienteDuplicado(List<cliente> clientes)
-        {
-            foreach (var c in clientes)
-            {
-                Console.WriteLine("Cliente: " + c.nome + " | Email: " + c.EMAIL);
-            }
-
-            foreach (var c in clientes)
-            {
-                Console.WriteLine("Cliente: " + c.nome + " | Email: " + c.EMAIL);
+                Console.WriteLine("Cliente: " + c.nome + " | Email: " + c.email);
             }
         }
     }

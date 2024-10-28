@@ -8,22 +8,22 @@ namespace LegacySystem
     {
         static void Main(string[] args)
         {
-            SistemaCliente sc = new SistemaCliente();
-            sc.AddCliente(1, "Joao", "joao@email.com");
-            sc.AddCliente(2, "Maria", "maria@email.com");
+            SistemaCliente cliente = new SistemaCliente();
+            cliente.AddCliente(1, "Joao", "joao@email.com");
+            cliente.AddCliente(2, "Maria", "maria@email.com");
 
-            SistemaTransacoes st = new SistemaTransacoes();
-            st.AdicionarTransacao(1, 100.50m, "Compra de Produto");
-            st.AdicionarTransacao(2, 200.00m, "Compra de Serviço");
-            st.AdicionarTransacao(3, 300.75m, "Compra de Software");
+            SistemaTransacoes transacao = new SistemaTransacoes();
+            transacao.AdicionarTransacao(1, 100.50m, "Compra de Produto");
+            transacao.AdicionarTransacao(2, 200.00m, "Compra de Serviço");
+            transacao.AdicionarTransacao(3, 300.75m, "Compra de Software");
 
-            sc.ExibirTodosOsClientes();
-            st.ExibirTransacoes();
+            cliente.ExibirTodosOsClientes();
+            transacao.ExibirTransacoes();
 
-            sc.removerCliente(1);
-            sc.ExibirTodosOsClientes();
+            cliente.removerCliente(1);
+            cliente.ExibirTodosOsClientes();
 
-            sc.AtualizarNomeCliente(2, "Maria Silva");
+            cliente.AtualizarNomeCliente(2, "Maria Silva");
 
             string nomeEmpresa = "Empresa Teste";
             string descricaoTransacao = "Compra de Insumo";
@@ -49,8 +49,7 @@ namespace LegacySystem
             }
 
             Relatorio relatorio = new Relatorio();
-            relatorio.GerarRelatorioCliente(sc.clientes);
-            relatorio.GerarRelatorioClienteDuplicado(sc.clientes);
+            relatorio.GerarRelatorioCliente(cliente.clientes);
 
             int soma = 0;
             for (int i = 0; i < 10; i++)
