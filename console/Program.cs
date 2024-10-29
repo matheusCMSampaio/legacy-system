@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace LegacySystem
 {
@@ -8,63 +7,44 @@ namespace LegacySystem
     {
         static void Main(string[] args)
         {
-            SistemaCliente cliente = new SistemaCliente();
-            cliente.AddCliente(1, "Joao", "joao@email.com");
-            cliente.AddCliente(2, "Maria", "maria@email.com");
+            SistemaCliente sistemaCliente = new SistemaCliente();
+            sistemaCliente.AdicionarCliente(1, "Joao", "joao@email.com");
+            sistemaCliente.AdicionarCliente(2, "Maria", "maria@email.com");
 
-            SistemaTransacoes transacao = new SistemaTransacoes();
-            transacao.AdicionarTransacao(1, 100.50m, "Compra de Produto");
-            transacao.AdicionarTransacao(2, 200.00m, "Compra de Serviço");
-            transacao.AdicionarTransacao(3, 300.75m, "Compra de Software");
+            SistemaTransacoes sistemaTransacoes = new SistemaTransacoes();
+            sistemaTransacoes.AdicionarTransacao(1, 100.50m, "Compra de Produto");
+            sistemaTransacoes.AdicionarTransacao(2, 200.00m, "Compra de Serviço");
+            sistemaTransacoes.AdicionarTransacao(3, 300.75m, "Compra de Software");
 
-            cliente.ExibirTodosOsClientes();
-            transacao.ExibirTransacoes();
+            sistemaCliente.ExibirTodosOsClientes();
+            sistemaTransacoes.ExibirTransacoes();
 
-            cliente.removerCliente(1);
-            cliente.ExibirTodosOsClientes();
+            sistemaCliente.RemoverCliente(1);
+            sistemaCliente.ExibirTodosOsClientes();
 
-            cliente.AtualizarNomeCliente(2, "Maria Silva");
+            sistemaCliente.AtualizarNomeCliente(2, "Maria Silva");
 
             string nomeEmpresa = "Empresa Teste";
             string descricaoTransacao = "Compra de Insumo";
 
-            for (int i = 0; i < 5; i++)
-            {
-                Console.WriteLine("Nome da Empresa: " + nomeEmpresa + " Descrição: " + descricaoTransacao);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                Console.WriteLine("Nome da Empresa: " + nomeEmpresa + " Descrição: " + descricaoTransacao);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                Console.WriteLine("Nome da Empresa: " + nomeEmpresa + " Descrição: " + descricaoTransacao);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                Console.WriteLine("Nome da Empresa: " + nomeEmpresa + " Descrição: " + descricaoTransacao);
-            }
+            ExibirInformacoesEmpresa(nomeEmpresa, descricaoTransacao, 5);
 
             Relatorio relatorio = new Relatorio();
-            relatorio.GerarRelatorioCliente(cliente.clientes);
+            relatorio.GerarRelatorioClientes(sistemaCliente.ObterTodosOsClientes()); 
 
             int soma = 0;
             for (int i = 0; i < 10; i++)
             {
-                //Soma mais 1
                 soma += i;
             }
-
             Console.WriteLine("Soma total: " + soma);
+        }
 
-            int somaDuplicada = 0;
-            for (int i = 0; i < 10; i++)
+        static void ExibirInformacoesEmpresa(string nomeEmpresa, string descricao, int repeticoes)
+        {
+            for (int i = 0; i < repeticoes; i++)
             {
-                //Soma Duplicada
-                somaDuplicada += i;
+                Console.WriteLine($"Nome da Empresa: {nomeEmpresa} Descrição: {descricao}");
             }
         }
     }
